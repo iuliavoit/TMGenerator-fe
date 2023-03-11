@@ -1,1 +1,10 @@
-<p>homepage works!</p>
+<div class="mt-4 w-100 flex jc-center">
+  <div>
+  <h1 class="army-green">Welcome to our Table&Matrix generator!</h1>
+    <div class="jc-evenly w-100 flex mt-4">
+      <button type="button" class="generic-btn" (click)="navigate('/tables')">Tables</button>
+      <button type="button" class="generic-btn" (click)="navigate('/matrixes')">Matrixes</button>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
