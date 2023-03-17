@@ -16,7 +16,7 @@ import { MatrixGeneratorComponent } from './matrixes/matrix-generator/matrix-gen
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
