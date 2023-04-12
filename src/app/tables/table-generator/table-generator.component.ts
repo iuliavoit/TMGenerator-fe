@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {feature_traceability} from "../data/feature_traceability";
-import {pace_nature} from "../data/pace_nature";
-import {complexity_hotspots} from "../data/complexity_hotspots";
+import {SortHelperService} from "../services/sort-helper.service";
+import {TableDataService} from "../services/table-data.service";
 
 
 @Component({
@@ -14,22 +13,33 @@ export class TableGeneratorComponent implements OnInit {
   showTable: any;
   tableHtml: string = '';
   columnCount = 0;
-  columns: any = feature_traceability.columns;
-  data: any = feature_traceability.data;
+  columns: any;
+  data: any = [];
+  dataCopy : any = [];
 
-  flattenedColumns:any;
+  flattenedColumns: any;
 
-  constructor() {
+  sortArray :any[] =[];
+
+  constructor(private sortService: SortHelperService,
+              private tableDataService: TableDataService) {
   }
 
   ngOnInit(): void {
-    this.flattenedColumns = this.setInitialSortStates(this.flattenJSON(this.columns, 0))
-    this.createTable();
+    this.tableDataService.getTableData().subscribe(data=> {
+      this.columns = data;
+      this.flattenedColumns = this.setInitialSortStates(this.flattenJSON(this.columns, 0));
+      console.log(this.flattenedColumns)
+      this.createTable();
+    })
   }
 
 
   createTable() {
+    this.columnCount = 0;
+    this.tableHtml = '';
     this.showTable = document.getElementById('showTable');
+    this.showTable.innerHTML = this.tableHtml;
     this.tableHtml = `<table style=" border-collapse: collapse;">`;
     //create table headers
     this.tableHtml += this.createTableHeaders();
@@ -37,15 +47,17 @@ export class TableGeneratorComponent implements OnInit {
     this.tableHtml += this.addTableColumns();
     this.showTable.innerHTML = this.tableHtml;
     this.tableHtml += `</table>`;
+    this.setSortColumnIds();
   }
 
+
   createTableHeaders(): string {
-   // let cols = this.flattenJSON(this.columns, 0);
-    //map and add sort state -> none/asc/desc
-    //cols = this.setInitialSortStates(cols);
+
     let cols = this.flattenedColumns;
+
     //sort the returned array so that the columns are in the right order
     cols.sort((a, b) => a.level - b.level);
+    const highestLevel = cols[cols.length-1].level;
     let headers = '';
     //generate the html for each header
     for (const h of cols) {
@@ -55,40 +67,49 @@ export class TableGeneratorComponent implements OnInit {
       const colspan = this.countEmptyChildrenColumns(h.column);
       // Start a new row if this is the first header
       if (headers === '') {
-        headers += '<tr style="border: 1px solid">';
+        headers += '<tr>';
       }
       // Start a new row if this header has a higher header level than the previous header
       if (headers !== '' && h?.level > cols[cols.indexOf(h) - 1]?.level) {
         headers += '</tr>';
       }
       // Generate the header cell HTML
+      let style = h.level === highestLevel? 'border-bottom:1px solid;':'';
+      if(h.column.borderL) {
+        style+='border-left: 1px solid'
+      }
+      if(h.column.borderR) {
+        style+='border-right: 1px solid'
+      }
+      if(h.column.borderB) {
+        style+='border-bottom: 1px solid'
+      }
       if (h.column.description) {
-        const style = h.level === 1 ? 'text-align:center;font-size: 13px;font-weight:500; margin-top:0' : '';
         headers += `<th
-                        style="${style};border: 1px solid; padding:0.5rem"
-                        colspan="${colspan}"
-                        id="${h.column?.id}"
-                        scope="colgroup">
-                        <span style="${h.column.nameStyle}">${h.column.name}</span>`;
-        headers += `<p  style= "${h.column.descriptionStyle};text-align:center;font-size: 13px;font-weight:500; margin-top:0;">
+                        style="${style}"
+                       colspan="${colspan}" id="${h.column?.id}"
+                       scope="colgroup">
+                        <span style="${h.column?.nameStyle}">${h.column.name}</span>`;
+        headers += `<div class="center-column-text">  <p  style= "${h.column?.descriptionStyle};text-align:center;font-size: 13px;font-weight:500; margin-top:0;">
                         ${h.column.description}</p>`
         if (this.isColumnSortable(h.column) && !h.column.childrenColumns.length) {
           const iconClass = this.getSortIconClassBasedOnColumnState(h);
-          headers += ` <i class="${iconClass}"></i>`
+          headers += `<i class="${iconClass}" style="margin-left: 1rem"  id="${h.column?.id}+i"></i></div>`;
         } else {
-          headers += `</th>`;
+          headers += `</div></th>`;
         }
       } else {
         headers += `<th
-                       style="border: 1px solid;  padding:0.5rem"
+                       style="${style};padding:0.3rem 0.5rem"
                        colspan="${colspan}" id="${h.column?.id}"
                        scope="colgroup">
-                       <span style="${h.column.nameStyle}">${h.column.name}</span>`
+                       <div  style="display: flex; text-align: center; justify-content: center">
+                       <span style="${h.column?.nameStyle}">${h.column.name}</span>`
         if (this.isColumnSortable(h.column) && !h.column.childrenColumns.length) {
           const iconClass = this.getSortIconClassBasedOnColumnState(h);
-          headers += ` <i class="${iconClass}"></i>`
+          headers += `<i class="${iconClass}" style="margin-left: 1rem" id="${h.column?.id}+i"></i></div>`;
         } else {
-          headers += `</th>`;
+          headers += `</div></th>`;
         }
       }
     }
@@ -142,9 +163,9 @@ export class TableGeneratorComponent implements OnInit {
     let columns = '';
     let singleColumn = '';
     this.data?.forEach(data => {
-      singleColumn = `<tr style="border: 1px solid">`;
+      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd">`;
       if (!Object.entries(data).length) {
-        singleColumn += this.insertEmptyRow();
+       singleColumn += this.insertEmptyRow();
       } else {
         singleColumn += this.createTableData(data);
       }
@@ -183,10 +204,18 @@ export class TableGeneratorComponent implements OnInit {
     }));
   }
 
-  isColumnSortable(column: any): boolean {
-    return !('sortable' in column)
+  setSortColumnIds() {
+    for (const h of this.flattenedColumns) {
+      if (this.isColumnSortable(h.column) && !h.column.childrenColumns.length) {
+        let icon = document.querySelector(`[id="${CSS.escape(`${h.column?.id}+i`)}"`); // Select the icon using the class name
+        icon?.addEventListener('click', () => this.sortColumn(h));
+      }
+    }
   }
 
+  isColumnSortable(column: any): boolean {
+    return column.sortable
+  }
 
 
   getSortIconClassBasedOnColumnState(column: any): string {
@@ -204,4 +233,44 @@ export class TableGeneratorComponent implements OnInit {
     return ''
   }
 
+
+  private sortColumn(h: any) {
+   const column = this.flattenedColumns.find(col=> col === h);
+    switch (column.sortState){
+     case "none": {
+       column.sortState = 'asc';
+       this.addColumnToSortArray(column);
+       break;
+     }
+     case "asc": {
+       column.sortState = 'desc';
+       this.addColumnToSortArray(column);
+       break;
+     }
+     case "desc": {
+       column.sortState = 'none';
+       this.deleteColumnFromSortArray(column);
+      // this.addColumnToSortArray(column);
+       break;
+     }
+   }
+    this.data = this.sortService.sortArrayByCriteria([...this.dataCopy], this.sortArray);
+   this.createTable();
+  }
+
+  deleteColumnFromSortArray(column:any) {
+    const columnToDeleteIdx = this.sortArray.indexOf(c=> JSON.stringify(c) === JSON.stringify(column));
+    if(columnToDeleteIdx) {
+      this.sortArray.splice(columnToDeleteIdx, 1);
+    }
+  }
+
+  addColumnToSortArray(column:any) {
+    let columnToSort = this.sortArray.find(c=> JSON.stringify(c.column) === JSON.stringify(column.column));
+    if(columnToSort) {
+        columnToSort = column;
+    } else {
+      this.sortArray.push(column);
+    }
+  }
 }
