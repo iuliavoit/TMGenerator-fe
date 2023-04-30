@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SortHelperService} from "../services/sort-helper.service";
 import {TableDataService} from "../services/table-data.service";
-
+import {pn} from "../pn";
 
 @Component({
   selector: 'app-table-generator',
@@ -15,23 +15,33 @@ export class TableGeneratorComponent implements OnInit {
   columnCount = 0;
   columns: any;
   data: any = [];
-  dataCopy : any = [];
+  dataCopy: any = [];
+  tableName: string = '';
 
   flattenedColumns: any;
 
-  sortArray :any[] =[];
+  sortArray: any[] = [];
 
   constructor(private sortService: SortHelperService,
               private tableDataService: TableDataService) {
   }
 
   ngOnInit(): void {
-    this.tableDataService.getTableData().subscribe(data=> {
+    /*this.tableDataService.getTableData().subscribe(data=> {
+     console.log(JSON.stringify(data))
       this.columns = data;
       this.flattenedColumns = this.setInitialSortStates(this.flattenJSON(this.columns, 0));
-      console.log(this.flattenedColumns)
       this.createTable();
-    })
+    })*/
+    this.columns = pn.columns;
+    this.tableName = pn.name;
+    for (let i = 0; i < 200; i++) {
+      this.data = this.data.concat(Object.values(pn.data))
+    }
+
+    this.dataCopy = [...this.data];
+    this.flattenedColumns = this.setInitialSortStates(this.flattenJSON(this.columns, 0));
+    this.createTable();
   }
 
 
@@ -57,7 +67,7 @@ export class TableGeneratorComponent implements OnInit {
 
     //sort the returned array so that the columns are in the right order
     cols.sort((a, b) => a.level - b.level);
-    const highestLevel = cols[cols.length-1].level;
+    const highestLevel = cols[cols.length - 1].level;
     let headers = '';
     //generate the html for each header
     for (const h of cols) {
@@ -74,22 +84,23 @@ export class TableGeneratorComponent implements OnInit {
         headers += '</tr>';
       }
       // Generate the header cell HTML
-      let style = h.level === highestLevel? 'border-bottom:1px solid;':'';
-      if(h.column.borderL) {
-        style+='border-left: 1px solid'
+      let style = h.level === highestLevel ? 'border-bottom:1px solid;' : '';
+      if (h.column.borderL) {
+        style += 'border-left: 1px solid'
       }
-      if(h.column.borderR) {
-        style+='border-right: 1px solid'
+      if (h.column.borderR) {
+        style += 'border-right: 1px solid'
       }
-      if(h.column.borderB) {
-        style+='border-bottom: 1px solid'
+      if (h.column.borderB) {
+        style += 'border-bottom: 1px solid'
       }
+      const nameValue = h.column?.name !== undefined && h.column?.name !== "" ? h.column?.name : "";
       if (h.column.description) {
         headers += `<th
                         style="${style}"
                        colspan="${colspan}" id="${h.column?.id}"
                        scope="colgroup">
-                        <span style="${h.column?.nameStyle}">${h.column.name}</span>`;
+                        <span style="${h.column?.nameStyle}">${nameValue}</span>`;
         headers += `<div class="center-column-text">  <p  style= "${h.column?.descriptionStyle};text-align:center;font-size: 13px;font-weight:500; margin-top:0;">
                         ${h.column.description}</p>`
         if (this.isColumnSortable(h.column) && !h.column.childrenColumns.length) {
@@ -104,7 +115,7 @@ export class TableGeneratorComponent implements OnInit {
                        colspan="${colspan}" id="${h.column?.id}"
                        scope="colgroup">
                        <div  style="display: flex; text-align: center; justify-content: center">
-                       <span style="${h.column?.nameStyle}">${h.column.name}</span>`
+                       <span style="${h.column?.nameStyle}">${nameValue}</span>`
         if (this.isColumnSortable(h.column) && !h.column.childrenColumns.length) {
           const iconClass = this.getSortIconClassBasedOnColumnState(h);
           headers += `<i class="${iconClass}" style="margin-left: 1rem" id="${h.column?.id}+i"></i></div>`;
@@ -162,10 +173,25 @@ export class TableGeneratorComponent implements OnInit {
   addTableColumns(): string {
     let columns = '';
     let singleColumn = '';
+    /*for (let row in this.data) {
+      const data = this.data[row];
+      for (let singleData in data) {
+        let d = data[singleData]
+        singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd">`;
+        if (!Object.entries(d).length) {
+          singleColumn += this.insertEmptyRow();
+        } else {
+          singleColumn += this.createTableData(d);
+        }
+        singleColumn += `</tr>`;
+        columns += singleColumn;
+      }
+
+    }*/
     this.data?.forEach(data => {
       singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd">`;
       if (!Object.entries(data).length) {
-       singleColumn += this.insertEmptyRow();
+        singleColumn += this.insertEmptyRow();
       } else {
         singleColumn += this.createTableData(data);
       }
@@ -175,17 +201,22 @@ export class TableGeneratorComponent implements OnInit {
     return columns;
   }
 
-  createTableData(data: any): string {
-    let singleColumn = '';
-    Object.entries(data).forEach(([key, value]) => {
-      if (Object(value).hasOwnProperty('url')) {
-        singleColumn += `<td class="td-general-styling"><a href="${Object(value).url}" target="_blank" style="color: black">${Object(value).displayValue}</a></td>`
-      } else {
-        singleColumn += `<td class="td-general-styling"><span >${value}</span></td>`
-      }
-    });
-    return singleColumn
-  }
+   createTableData(data: any): string {
+     let singleColumn = '';
+     Object.entries(data).forEach(([key, value]) => {
+       const style = Object(value).style? Object(value)?.style : "";
+       if (Object(value).hasOwnProperty('url')) {
+         singleColumn += `<td  style="${style}" class="td-general-styling"><a href="${Object(value).url}" target="_blank" style="color: black">${Object(value).displayValue}</a></td>`
+       } else {
+         if (Object(value).value === '0') {
+           singleColumn += `<td class="td-general-styling"><span class="d-none">${Object(value).value}</span></td>`
+         } else {
+           singleColumn += `<td  style="${style}" class="td-general-styling"><span>${Object(value).value}</span></td>`
+         }
+       }
+     });
+     return singleColumn
+   }
 
   insertEmptyRow(): string {
     let emptyRow = '';
@@ -214,7 +245,7 @@ export class TableGeneratorComponent implements OnInit {
   }
 
   isColumnSortable(column: any): boolean {
-    return column.sortable
+    return column.sortable !== false;
   }
 
 
@@ -235,42 +266,44 @@ export class TableGeneratorComponent implements OnInit {
 
 
   private sortColumn(h: any) {
-   const column = this.flattenedColumns.find(col=> col === h);
-    switch (column.sortState){
-     case "none": {
-       column.sortState = 'asc';
-       this.addColumnToSortArray(column);
-       break;
-     }
-     case "asc": {
-       column.sortState = 'desc';
-       this.addColumnToSortArray(column);
-       break;
-     }
-     case "desc": {
-       column.sortState = 'none';
-       this.deleteColumnFromSortArray(column);
-      // this.addColumnToSortArray(column);
-       break;
-     }
-   }
+    const column = this.flattenedColumns.find(col => col === h);
+    console.log(column)
+    switch (column.sortState) {
+      case "none": {
+        column.sortState = 'asc';
+        this.addColumnToSortArray(column);
+        break;
+      }
+      case "asc": {
+        column.sortState = 'desc';
+        this.addColumnToSortArray(column);
+        break;
+      }
+      case "desc": {
+        column.sortState = 'none';
+        this.deleteColumnFromSortArray(column);
+        // this.addColumnToSortArray(column);
+        break;
+      }
+    }
     this.data = this.sortService.sortArrayByCriteria([...this.dataCopy], this.sortArray);
-   this.createTable();
+    this.createTable();
   }
 
-  deleteColumnFromSortArray(column:any) {
-    const columnToDeleteIdx = this.sortArray.indexOf(c=> JSON.stringify(c) === JSON.stringify(column));
-    if(columnToDeleteIdx) {
+  deleteColumnFromSortArray(column: any) {
+    const columnToDeleteIdx = this.sortArray.indexOf(c => JSON.stringify(c) === JSON.stringify(column));
+    if (columnToDeleteIdx) {
       this.sortArray.splice(columnToDeleteIdx, 1);
     }
   }
 
-  addColumnToSortArray(column:any) {
-    let columnToSort = this.sortArray.find(c=> JSON.stringify(c.column) === JSON.stringify(column.column));
-    if(columnToSort) {
-        columnToSort = column;
+  addColumnToSortArray(column: any) {
+    let columnToSort = this.sortArray.find(c => JSON.stringify(c.column) === JSON.stringify(column.column));
+    if (columnToSort) {
+      columnToSort = column;
     } else {
       this.sortArray.push(column);
     }
   }
+
 }

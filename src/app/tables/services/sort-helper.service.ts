@@ -19,18 +19,17 @@ export class SortHelperService {
         let valueB = b[column.id];
         let comparison = 0;
 
-        if (column.type === 'DateTime') {
+        if (column.type === 'Date') {
           const dateA = new Date(valueA);
           const dateB = new Date(valueB);
           comparison = dateA.getTime() - dateB.getTime();
         } else if (column.type === 'String') {
-          //for the empty rows that comes as {}
+          //for the empty rows that come as {}
           valueA = valueA!=undefined? valueA : '';
           valueB = valueB!=undefined? valueB : '';
-
           comparison = valueA.localeCompare(valueB);
         } else {
-          comparison = valueA - valueB;
+          comparison = parseInt(valueA) - parseInt(valueB);
         }
 
         if (sortState === 'desc') {
