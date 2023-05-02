@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reorderable Table Rows</title>
+  <style>
+    /* Style the table */
+    table {
+      width: 50%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+    tr.draggable {
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>Header 1</th>
+    <th>Header 2</th>
+  </tr>
+  </thead>
+  <tbody id="table-body">
+  <tr class="draggable" draggable="true">
+    <td>Row 1, Col 1</td>
+    <td>Row 1, Col 2</td>
+  </tr>
+  <tr class="draggable" draggable="true">
+    <td>Row 2, Col 1</td>
+    <td>Row 2, Col 2</td>
+  </tr>
+  <tr class="draggable" draggable="true">
+    <td>Row 3, Col 1</td>
+    <td>Row 3, Col 2</td>
+  </tr>
+  <tr class="draggable" draggable="true">
+    <td>Row 4, Col 1</td>
+    <td>Row 4, Col 2</td>
+  </tr>
+  <tr class="draggable" draggable="true">
+    <td>Row 5, Col 1</td>
+    <td>Row 5, Col 2</td>
+  </tr>
+  </tbody>
+</table>
+
+<script>
+
+
+</script>
+</body>
+</html>

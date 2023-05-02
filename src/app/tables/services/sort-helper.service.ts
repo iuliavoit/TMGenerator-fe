@@ -15,8 +15,8 @@ export class SortHelperService {
     return data.sort((a, b) => {
       for (let i = 0; i < sortCriteria.length; i++) {
         const { column, sortState } = sortCriteria[i];
-        let valueA = a[column.id];
-        let valueB = b[column.id];
+        let valueA = a[column.id].value;
+        let valueB = b[column.id].value;
         let comparison = 0;
 
         if (column.type === 'Date') {

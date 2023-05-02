@@ -35,7 +35,7 @@ export class TableGeneratorComponent implements OnInit {
     })*/
     this.columns = pn.columns;
     this.tableName = pn.name;
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 2; i++) {
       this.data = this.data.concat(Object.values(pn.data))
     }
 
@@ -68,7 +68,7 @@ export class TableGeneratorComponent implements OnInit {
     //sort the returned array so that the columns are in the right order
     cols.sort((a, b) => a.level - b.level);
     const highestLevel = cols[cols.length - 1].level;
-    let headers = '';
+    let headers = '<thead>';
     //generate the html for each header
     for (const h of cols) {
       if (!h.column.childrenColumns.length) this.columnCount += 1;
@@ -128,7 +128,7 @@ export class TableGeneratorComponent implements OnInit {
     if (headers !== '') {
       headers += '</tr>';
     }
-    return headers;
+    return headers + '</thead>';
   }
 
 
@@ -171,7 +171,7 @@ export class TableGeneratorComponent implements OnInit {
   }
 
   addTableColumns(): string {
-    let columns = '';
+    let columns = '<tbody id="table-body">';
     let singleColumn = '';
     /*for (let row in this.data) {
       const data = this.data[row];
@@ -189,7 +189,7 @@ export class TableGeneratorComponent implements OnInit {
 
     }*/
     this.data?.forEach(data => {
-      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd">`;
+      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true">`;
       if (!Object.entries(data).length) {
         singleColumn += this.insertEmptyRow();
       } else {
@@ -198,7 +198,7 @@ export class TableGeneratorComponent implements OnInit {
       singleColumn += `</tr>`;
       columns += singleColumn;
     });
-    return columns;
+    return columns + '</tbody>';
   }
 
    createTableData(data: any): string {
