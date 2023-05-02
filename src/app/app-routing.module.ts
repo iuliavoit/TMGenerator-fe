@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'home', component: HomepageComponent
   },
   {
-    path: '', redirectTo: 'tables', pathMatch: 'full'
+    path: '', redirectTo: 'home', pathMatch: 'full'
   }
 ];
 

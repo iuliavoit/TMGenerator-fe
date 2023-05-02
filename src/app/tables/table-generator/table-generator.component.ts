@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {SortHelperService} from "../services/sort-helper.service";
 import {TableDataService} from "../services/table-data.service";
-import {pn} from "../pn";
-
+import {mockTable} from "../mockTable";
+import  jsPDF  from 'jspdf';
+import html2canvas from "html2canvas";
 @Component({
   selector: 'app-table-generator',
   templateUrl: './table-generator.component.html',
   styleUrls: ['./table-generator.component.scss']
 })
 export class TableGeneratorComponent implements OnInit {
+  @ViewChild('fullTable') fullTable: ElementRef;
 
   showTable: any;
   tableHtml: string = '';
@@ -33,10 +35,10 @@ export class TableGeneratorComponent implements OnInit {
       this.flattenedColumns = this.setInitialSortStates(this.flattenJSON(this.columns, 0));
       this.createTable();
     })*/
-    this.columns = pn.columns;
-    this.tableName = pn.name;
+    this.columns = mockTable.columns;
+    this.tableName = mockTable.name;
     for (let i = 0; i < 2; i++) {
-      this.data = this.data.concat(Object.values(pn.data))
+      this.data = this.data.concat(Object.values(mockTable.data))
     }
 
     this.dataCopy = [...this.data];
@@ -49,7 +51,6 @@ export class TableGeneratorComponent implements OnInit {
     this.columnCount = 0;
     this.tableHtml = '';
     this.showTable = document.getElementById('showTable');
-    this.showTable.innerHTML = this.tableHtml;
     this.tableHtml = `<table style=" border-collapse: collapse;">`;
     //create table headers
     this.tableHtml += this.createTableHeaders();
@@ -131,7 +132,6 @@ export class TableGeneratorComponent implements OnInit {
     return headers + '</thead>';
   }
 
-
 //a function that returns an array containing all the extracted objects that the initial json has
 // and gives them a level according to their depth basically (header level)
   flattenJSON(json, level = 1): any[] {
@@ -173,21 +173,6 @@ export class TableGeneratorComponent implements OnInit {
   addTableColumns(): string {
     let columns = '<tbody id="table-body">';
     let singleColumn = '';
-    /*for (let row in this.data) {
-      const data = this.data[row];
-      for (let singleData in data) {
-        let d = data[singleData]
-        singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd">`;
-        if (!Object.entries(d).length) {
-          singleColumn += this.insertEmptyRow();
-        } else {
-          singleColumn += this.createTableData(d);
-        }
-        singleColumn += `</tr>`;
-        columns += singleColumn;
-      }
-
-    }*/
     this.data?.forEach(data => {
       singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true">`;
       if (!Object.entries(data).length) {
@@ -201,22 +186,22 @@ export class TableGeneratorComponent implements OnInit {
     return columns + '</tbody>';
   }
 
-   createTableData(data: any): string {
-     let singleColumn = '';
-     Object.entries(data).forEach(([key, value]) => {
-       const style = Object(value).style? Object(value)?.style : "";
-       if (Object(value).hasOwnProperty('url')) {
-         singleColumn += `<td  style="${style}" class="td-general-styling"><a href="${Object(value).url}" target="_blank" style="color: black">${Object(value).displayValue}</a></td>`
-       } else {
-         if (Object(value).value === '0') {
-           singleColumn += `<td class="td-general-styling"><span class="d-none">${Object(value).value}</span></td>`
-         } else {
-           singleColumn += `<td  style="${style}" class="td-general-styling"><span>${Object(value).value}</span></td>`
-         }
-       }
-     });
-     return singleColumn
-   }
+  createTableData(data: any): string {
+    let singleColumn = '';
+    Object.entries(data).forEach(([key, value]) => {
+      const style = Object(value).style ? Object(value)?.style : "";
+      if (Object(value).value.hasOwnProperty('url')) {
+        singleColumn += `<td  style="${style}" class="td-general-styling"><a href="${Object(value).url}" target="_blank" style="color: black">${Object(value).displayValue}</a></td>`
+      } else {
+        if (Object(value).value === '0') {
+          singleColumn += `<td class="td-general-styling"><span class="d-none">${Object(value).value}</span></td>`
+        } else {
+          singleColumn += `<td  style="${style}" class="td-general-styling"><span>${Object(value).value}</span></td>`
+        }
+      }
+    });
+    return singleColumn
+  }
 
   insertEmptyRow(): string {
     let emptyRow = '';
@@ -267,7 +252,6 @@ export class TableGeneratorComponent implements OnInit {
 
   private sortColumn(h: any) {
     const column = this.flattenedColumns.find(col => col === h);
-    console.log(column)
     switch (column.sortState) {
       case "none": {
         column.sortState = 'asc';
@@ -282,7 +266,6 @@ export class TableGeneratorComponent implements OnInit {
       case "desc": {
         column.sortState = 'none';
         this.deleteColumnFromSortArray(column);
-        // this.addColumnToSortArray(column);
         break;
       }
     }
@@ -305,5 +288,27 @@ export class TableGeneratorComponent implements OnInit {
       this.sortArray.push(column);
     }
   }
+
+   generatePdf() {
+     const tableNativeElement = document.getElementById('table');
+
+     // Convert the table to an image using html2canvas
+     html2canvas(this.fullTable.nativeElement).then((canvas) => {
+       // Create a new jsPDF instance
+       const pdf = new jsPDF();
+
+       // Add the image of the table to the PDF
+       pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), 0);
+
+       // Save the PDF
+       pdf.save('table.pdf');
+     });
+    /* const doc = new jsPDF();
+     var parser = new DOMParser();
+     console.log(this.fullTable.nativeElement.textContent)
+     var data = parser.parseFromString(this.fullTable.nativeElement, 'text/html');
+     doc.fromHTML(data);*/
+     //doc.save('savePDF.pdf');
+   }
 
 }
