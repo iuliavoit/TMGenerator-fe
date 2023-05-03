@@ -43,6 +43,6 @@ td{
 ::ng-deep.d-none{
   display: none;
 }
-tr.draggable {
+::ng-deep tr.draggable {
   cursor: move;
 }

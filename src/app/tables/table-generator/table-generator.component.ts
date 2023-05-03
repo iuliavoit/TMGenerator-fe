@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {SortHelperService} from "../services/sort-helper.service";
 import {TableDataService} from "../services/table-data.service";
 import {mockTable} from "../mockTable";
@@ -26,6 +26,7 @@ export class TableGeneratorComponent implements OnInit {
   sortArray: any[] = [];
 
   constructor(private sortService: SortHelperService,
+              private changeDetector: ChangeDetectorRef,
               private tableDataService: TableDataService) {
   }
 
@@ -38,7 +39,7 @@ export class TableGeneratorComponent implements OnInit {
     })*/
     this.columns = mockTable.columns;
     this.tableName = mockTable.name;
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 2; i++) {
       this.data = this.data.concat(Object.values(mockTable.data))
     }
 
@@ -49,17 +50,20 @@ export class TableGeneratorComponent implements OnInit {
 
 
   createTable() {
+    this.changeDetector.detectChanges();
     this.columnCount = 0;
     this.tableHtml = '';
     this.showTable = document.getElementById('showTable');
+    this.showTable.innerHTML = this.tableHtml;
     this.tableHtml = `<table style=" border-collapse: collapse;">`;
     //create table headers
     this.tableHtml += this.createTableHeaders();
     //populate table
     this.tableHtml += this.addTableColumns();
-    this.showTable.innerHTML = this.tableHtml;
     this.tableHtml += `</table>`;
+    this.showTable.innerHTML = this.tableHtml;
     this.setSortColumnIds();
+    document.dispatchEvent(new Event('DOMContentLoaded'));
   }
 
 
@@ -172,10 +176,10 @@ export class TableGeneratorComponent implements OnInit {
   }
 
   addTableColumns(): string {
-    let columns = '<tbody id="table-body" cdkDropList (cdkDropListDropped)="drop($event)">';
+    let columns = '<tbody id="table-body">';
     let singleColumn = '';
     this.data?.forEach(data => {
-      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true" cdkDrag cdkDragLockAxis="y">`;
+      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true">`;
       if (!Object.entries(data).length) {
         singleColumn += this.insertEmptyRow();
       } else {

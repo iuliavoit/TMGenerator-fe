@@ -6,7 +6,6 @@ import { HomepageComponent } from './shared/homepage/homepage.component';
 import { TableGeneratorComponent } from './tables/table-generator/table-generator.component';
 import { MatrixGeneratorComponent } from './matrixes/matrix-generator/matrix-generator.component';
 import {HttpClientModule} from "@angular/common/http";
-import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    DragDropModule,
 
   ],
   providers: [],
