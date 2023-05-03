@@ -20,12 +20,16 @@ export class MatrixGeneratorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeData()
+    this.createMatrix();
+  }
+
+  initializeData() {
     this.matrixName = mockMatrix.name;
     this.entityGroup1 = mockMatrix.entity1PaddingColumns;
     this.entityGroup2 = mockMatrix.entity2PaddingColumns;
     this.entity1PaddingData = Object.values(mockMatrix.entity1PaddingData);
     this.entity2PaddingData = Object.values(mockMatrix.entity2PaddingData);
-    this.createMatrix();
   }
 
   createMatrix() {
@@ -47,52 +51,41 @@ export class MatrixGeneratorComponent implements OnInit {
       for (let i = 0; i < this.entityGroup1.length - 1; i++) {
         rightHeaders = rightHeaders + `<th style="width: 10%;"> </th>`
       }
-      rightHeaders += `<th style="width: 10%; text-align:center;" id="${column.id}">${column.name}</th>`
+      const style = column.nameStyle ? column?.nameStyle : "";
+      rightHeaders += `<th style="${style}" id="${column.id}" class="td-general-styling">${column.name}</th>`
       //here iterate through the generated data for this column and add it as <th>
 
-      let v = this.extractValues(this.entity2PaddingData, column.id);
+      let v = this.extractValuesAtTheSamePropertyInJson(this.entity2PaddingData, column.id);
       v.forEach(data => {
-        const style = Object(data).style ? Object(data)?.style : "";
+        const style = Object(data).nameStyle ? Object(data)?.nameStyle : "";
         rightHeaders += `<th  style="${style}" class="td-general-styling"><span>${Object(data).value}</span></th>`
       })
-
       rightHeaders += `</tr>`;
     });
     //vertical header
     leftHeaders += `<tr style="border-top: 1px solid #ddd">`
     this.entityGroup1.forEach(column => {
-      leftHeaders += `<td style="width: 10%;text-align:center; font-weight: bold" id="${column.id}">${column.name}</td>`
+      const style = column.nameStyle ? column?.nameStyle : "";
+      leftHeaders += `<td style="${style}" id="${column.id}" class="td-general-styling">${column.name}</td>`
     });
     leftHeaders += `</tr>`
-    //here iterate through the generated data for this column and add it as <th>
-    //but on the same row there should also be the full generated data
-    //like <tr> -padding datas- + -data- </tr>
-    //this.entityGroup1.forEach(column => {
-      //leftHeaders == `<tr>`;
-      leftHeaders += this.getEntity2PaddingData('a');
-    //  leftHeaders += this.getMatrixData(column.id);
-     // leftHeaders == `</tr>`;
-    //});
+    leftHeaders += this.getEntity1PaddingData();
     html += rightHeaders + leftHeaders;
-
     return html;
   }
 
-  getEntity2PaddingData(column: any): string {
-    let paddingData = `<tr>`;
-    /*let v = this.extractValues(this.entity1PaddingData, column.id);
-    v.forEach(data=> {
-      const style = Object(data).style ? Object(data)?.style : "";
-      paddingData += `<th  style="${style}" class="td-general-styling"><span>${Object(data).value}</span></th>`
-    })*/
-    Object.values(mockMatrix.entity2PaddingData).forEach(data => {
-      Object.entries(data).forEach(([key, value]) => {
-        const style = Object(value).style ? Object(value)?.style : "";
-        paddingData += `<td  style="${style}" class="td-general-styling"><span>${Object(value).value}</span></td>`
+  getEntity1PaddingData(): string {
+    let paddingData = '';
+    this.entity1PaddingData.forEach(data => {
+      let entityData = `<tr>`;
+      Object.values(data).forEach(d => {
+        const style = Object(d).nameStyle ? Object(d)?.nameStyle : "";
+        entityData += `<td  style="${style}" class="td-general-styling"><span>${Object(d).value}</span></td>`
       });
+      entityData += `</tr>`
+      // paddingData += this.getMatrixData(data); -> data for each si avem prima val
+      paddingData += entityData
     });
-    paddingData += this.getMatrixData(column.id);
-    paddingData += `</tr>`
     return paddingData;
   }
 
@@ -102,7 +95,7 @@ export class MatrixGeneratorComponent implements OnInit {
     return matrixData;
   }
 
-  extractValues = (data: any, prefix: string) => {
+  extractValuesAtTheSamePropertyInJson = (data: any, prefix: string) => {
     const values: any[] = [];
     for (const key in data) {
       if (data.hasOwnProperty(key)) {

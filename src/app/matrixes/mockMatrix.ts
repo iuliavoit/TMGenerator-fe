@@ -1,22 +1,47 @@
 export var mockMatrix =
+
   {
+    "entity1PaddingColumns": [{
+      "id": "entity1namecolumn",
+      "name": "",
+      "childrenColumns": []
+    }, {
+      "id": "entity1sizecolumn",
+      "name": "Size(%)",
+      "nameStyle": "font-weight: bold;text-align: center;",
+      "childrenColumns": []
+    }, {
+      "id": "entity1devscolumn",
+      "name": "Devs",
+      "nameStyle": "font-weight: bold;text-align: center;",
+      "childrenColumns": []
+    }, {
+      "id": "entity1activedevscolumn",
+      "name": "Active Devs",
+      "nameStyle": "font-weight: bold;text-align: center;",
+      "childrenColumns": []
+    }, {
+      "id": "entity1apkscolumn",
+      "name": "APKS(%)",
+      "nameStyle": "font-weight: bold;text-align: center;",
+      "childrenColumns": []
+    }],
     "name": "mock matrix",
-    "entity1PaddingColumns":
-      [{"id": "entity1namecolumn", "name": "", "childrenColumns": []}, {
-        "id": "entity1sizecolumn",
-        "name": "Size(%)",
-        "childrenColumns": []
-      }, {"id": "entity1devscolumn", "name": "Devs", "childrenColumns": []}, {
-        "id": "entity1activedevscolumn",
-        "name": "Active Devs",
-        "childrenColumns": []
-      }, {"id": "entity1apkscolumn", "name": "APKS(%)", "childrenColumns": []}],
-    "entity2PaddingColumns":
-      [{"id": "entity2namecolumn", "name": "", "childrenColumns": []}, {
-        "id": "entity2knowledgecolumn",
-        "name": "Knowledge(%)",
-        "childrenColumns": []
-      }, {"id": "entity2componentscolumn", "name": "Components", "childrenColumns": []}],
+    "entity2PaddingColumns": [{
+      "id": "entity2namecolumn",
+      "name": "",
+      "childrenColumns": []
+    }, {
+      "id": "entity2knowledgecolumn",
+      "name": "Knowledge(%)",
+      "nameStyle": "font-weight: bold;text-align: center;",
+      "childrenColumns": []
+    }, {
+      "id": "entity2componentscolumn",
+      "name": "Components",
+      "nameStyle": "font-weight: bold;text-align: center;",
+      "childrenColumns": []
+    }],
     "entity1PaddingData":
       {
         "scriptbee": {
