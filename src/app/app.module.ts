@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './shared/homepage/homepage.component';
 import { TableGeneratorComponent } from './tables/table-generator/table-generator.component';
 import { MatrixGeneratorComponent } from './matrixes/matrix-generator/matrix-generator.component';
 import {HttpClientModule} from "@angular/common/http";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     TableGeneratorComponent,
-    MatrixGeneratorComponent
+    MatrixGeneratorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    DragDropModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

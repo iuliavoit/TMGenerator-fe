@@ -1,6 +1,6 @@
-export var mockTable = {
-  "columns": [{
-    "name": "", "childrenColumns": [{
+export var mockTable =
+  {
+    "columns": [{
       "name": "",
       "childrenColumns": [{
         "childrenColumns": [{
@@ -11,6 +11,32 @@ export var mockTable = {
           "childrenColumns": []
         }]
       }, {
+        "id": "startedin",
+        "name": "started in",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "childrenColumns": [{
+          "id": "yyyymmstartedin",
+          "type": "Date",
+          "name": "yyyy-mm",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }]
+      }, {
+        "id": "latestchange",
+        "name": "latest <br> change",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "childrenColumns": [{
+          "id": "yyyymmlatestchange",
+          "type": "Date",
+          "name": "yyyy-mm",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }]
+      }]
+    }, {
+      "name": "Files",
+      "borderR": true,
+      "childrenColumns": [{
         "id": "files",
         "name": "files",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
@@ -21,77 +47,70 @@ export var mockTable = {
           "childrenColumns": []
         }]
       }, {
-        "id": "lines",
-        "name": "lines",
+        "id": "importedfiles",
+        "name": "imported <br> files",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
         "childrenColumns": [{
-          "id": "#lines",
-          "name": "x1000",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "commits",
-        "name": "commits",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "#commits",
+          "id": "#importedfiles",
           "name": "#",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "startDate",
-        "name": "start date",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "yyyy-mmstart",
-          "type": "Date",
-          "name": "yyyy-mm",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "endDate",
-        "name": "end date",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "yyyy-mmend",
-          "type": "Date",
-          "name": "yyyy-mm",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d",
-          "childrenColumns": []
-        }]
-      }]
-    }]
-  }, {
-    "name": "PACE of CHANGES",
-    "nameStyle": "color: #6c757d;",
-    "borderR": true,
-    "childrenColumns": [{
-      "name": "Commits <br> per month",
-      "borderR": true,
-      "childrenColumns": [{
-        "name": "commits",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "mediancommits",
-          "name": "median",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }]
-      }, {
-        "name": "recent <br> commits",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
-        "childrenColumns": [{
-          "id": "medianrecentcommits",
-          "name": "median",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }, {
-          "id": "trendrecentcommits",
-          "name": "trend",
+          "id": "%allimportedfiles",
+          "type": "String",
+          "name": "%all",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
+          "childrenColumns": []
+        }]
+      }, {
+        "id": "sourcefiles",
+        "name": "source <br> files",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "childrenColumns": [{
+          "id": "#sourcefiles",
+          "name": "#",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }, {
+          "id": "%allsourcefiles",
+          "type": "String",
+          "name": "%all",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
+          "childrenColumns": []
+        }]
+      }, {
+        "id": "activerecentlyfiles",
+        "name": "active <br> recently",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "childrenColumns": [{
+          "id": "#activerecentlyfiles",
+          "name": "#",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }, {
+          "id": "%allactiverecentlyfiles",
+          "type": "String",
+          "name": "%all",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
+          "childrenColumns": []
+        }]
+      }, {
+        "id": "createdrecentlyfiles",
+        "name": "created <br> recently",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "borderR": true,
+        "childrenColumns": [{
+          "id": "#createdrecentlyfiles",
+          "name": "#",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }, {
+          "id": "%allcreatedrecentlyfiles",
+          "type": "String",
+          "name": "%all",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "sortable": false,
           "borderR": true,
@@ -99,448 +118,357 @@ export var mockTable = {
         }]
       }]
     }, {
-      "name": "Change Volume <br> per month",
+      "name": "Code Size",
       "borderR": true,
       "childrenColumns": [{
-        "id": "medianchurnwrapper",
-        "name": "churn <br> median",
+        "id": "alllinescodesize",
+        "name": "all <br> lines",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
         "childrenColumns": [{
-          "id": "medianchurn",
+          "id": "x1000alllinescodesize",
           "name": "x1000",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }]
       }, {
-        "id": "recentmedianchurnwrapper",
-        "name": "recent churn <br> median",
+        "id": "sourcecodelines",
+        "name": "source <br> code lines",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
         "childrenColumns": [{
-          "id": "recentmedianchurn",
+          "id": "x1000sourcecodelines",
           "name": "x1000",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }, {
-          "id": "recentmedianchurntrend",
-          "name": "trend",
+          "id": "%allsourcecodelines",
+          "type": "String",
+          "name": "%all",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "borderR": true,
-          "childrenColumns": []
-        }]
-      }]
-    }, {
-      "name": "Growth <br> per month",
-      "borderR": true,
-      "childrenColumns": [{
-        "id": "mediangrowth",
-        "name": "lines <br> median",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "mediangrowth",
-          "name": "x1000",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
           "childrenColumns": []
         }]
       }, {
-        "id": "recentmediangrowthwrapper",
-        "name": "recent lines <br> median",
+        "id": "growthrecentcodesize",
+        "name": "growth recent",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
         "borderR": true,
         "childrenColumns": [{
-          "id": "recentmediangrowth",
+          "id": "x1000growthrecentcodesize",
           "name": "x1000",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }, {
-          "id": "recentmediangrowthtrend",
-          "name": "trend",
+          "id": "%allgrowthrecentcodesize",
+          "type": "String",
+          "name": "%all",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
           "borderR": true,
           "childrenColumns": []
         }]
       }]
     }, {
-      "name": "Active Files <br> per month",
+      "name": "Developers",
       "borderR": true,
       "childrenColumns": [{
-        "id": "medianfileswrapper",
-        "name": "files",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "medianfiles",
-          "name": "median",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "recentmedianfileswrapper",
-        "name": "recent <br> files",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
-        "childrenColumns": [{
-          "id": "recentmedianfiles",
-          "name": "median",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }, {
-          "id": "recentmedianfilestrend",
-          "name": "trend",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "borderR": true,
-          "childrenColumns": []
-        }]
-      }]
-    }, {
-      "name": "Developers <br> per month",
-      "borderR": true,
-      "childrenColumns": [{
-        "id": "mediandevswrapper",
+        "id": "alldevs",
         "name": "all <br> devs",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
         "childrenColumns": [{
-          "id": "mediandevs",
-          "name": "median",
+          "id": "#alldevs",
+          "name": "#",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }]
       }, {
-        "id": "recentdevswrapper",
-        "name": "recent <br> devs",
+        "id": "activerecentlydevs",
+        "name": "active <br> recently",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
         "childrenColumns": [{
-          "id": "recentmediandevs",
-          "name": "median",
+          "id": "#activerecentlydevs",
+          "name": "#",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }, {
-          "id": "recentmediandevstrend",
-          "name": "trend",
+          "id": "%allactiverecentlydevs",
+          "name": "%all",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
+          "childrenColumns": []
+        }]
+      }, {
+        "id": "joinedrecentlydevs",
+        "name": "joined <br> recently",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "borderR": true,
+        "childrenColumns": [{
+          "id": "#joinedrecentlydevs",
+          "name": "#",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }, {
+          "id": "%alljoinederecentlydevs",
+          "name": "%all",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
           "borderR": true,
           "childrenColumns": []
         }]
       }]
     }, {
-      "name": "Active Tasks <br> per month",
+      "name": "Commits",
       "borderR": true,
       "childrenColumns": [{
-        "id": "mediantaskswrapper",
+        "id": "allcommits",
+        "name": "all <br> com.",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "childrenColumns": [{
+          "id": "#allcommits",
+          "name": "#",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }]
+      }, {
+        "id": "recentcommits",
+        "name": "recent <br> commits",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "borderR": true,
+        "childrenColumns": [{
+          "id": "#recentcommits",
+          "name": "#",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }, {
+          "id": "%allrecentcommits",
+          "name": "%all",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
+          "borderR": true,
+          "childrenColumns": []
+        }]
+      }]
+    }, {
+      "name": "Change Volume",
+      "borderR": true,
+      "childrenColumns": [{
+        "id": "allchurnvolume",
+        "name": "all <br> churn",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "childrenColumns": [{
+          "id": "x1000allchurn",
+          "name": "x1000",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }]
+      }, {
+        "id": "recentchurnvolume",
+        "name": "recent <br> churn",
+        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+        "borderR": true,
+        "childrenColumns": [{
+          "id": "x1000recentchurn",
+          "name": "x1000",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "childrenColumns": []
+        }, {
+          "id": "%allrecentchurn",
+          "name": "%all",
+          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
+          "sortable": false,
+          "borderR": true,
+          "childrenColumns": []
+        }]
+      }]
+    }, {
+      "name": "Tasks",
+      "childrenColumns": [{
+        "id": "alltasks",
         "name": "all <br> tasks",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
         "childrenColumns": [{
-          "id": "mediantasks",
-          "name": "median",
+          "id": "#alltasks",
+          "name": "#",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }]
       }, {
-        "id": "recenttaskswrapper",
+        "id": "recenttasks",
         "name": "recent <br> tasks",
         "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
         "childrenColumns": [{
-          "id": "recentmediantasks",
-          "name": "median",
+          "id": "#recenttasks",
+          "name": "#",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
           "childrenColumns": []
         }, {
-          "id": "recentmediantaskstrend",
-          "name": "trend",
+          "id": "%allrecenttasks",
+          "name": "%all",
           "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "borderR": true,
+          "sortable": false,
           "childrenColumns": []
         }]
       }]
-    }, {
-      "name": "Commit Days <br> per month",
-      "borderR": true,
-      "childrenColumns": [{
-        "id": "mediandayswrapper",
-        "name": "active <br> days",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "mediandays",
-          "name": "median",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "recentdayswrapper",
-        "name": "recent <br> active days",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
-        "childrenColumns": [{
-          "id": "recentmediandays",
-          "name": "median",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }, {
-          "id": "recentmediandaystrend",
-          "name": "trend",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "borderR": true,
-          "childrenColumns": []
-        }]
-      }]
-    }]
-  }, {
-    "name": "NATURE of CHANGES",
-    "nameStyle": "color: #6c757d;",
-    "childrenColumns": [{
-      "name": "Creational",
-      "description": "changes by which <br> files are added to repo",
-      "descriptionStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-      "borderR": true,
-      "childrenColumns": [{
-        "id": "allchangescreationalwrapper",
-        "name": "all <br> changes",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "allchangescreational",
-          "name": "%",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "recentchangescreationalswrapper",
-        "name": "recent <br> changes",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
-        "childrenColumns": [{
-          "id": "recentchangescreational%",
-          "name": "%",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }, {
-          "id": "recentchangescreationaltrend",
-          "name": "trend",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "borderR": true,
-          "childrenColumns": []
-        }]
-      }]
-    }, {
-      "name": "Development",
-      "description": "changes causing <br> substantial growth",
-      "descriptionStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-      "borderR": true,
-      "childrenColumns": [{
-        "id": "allchangesdevwrapper",
-        "name": "all <br> changes",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "allchangesdev",
-          "name": "%",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "recentchangesdevwrapper",
-        "name": "recent <br> changes",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "borderR": true,
-        "childrenColumns": [{
-          "id": "recentchangesdev%",
-          "name": "%",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }, {
-          "id": "recentchangesdevtrend",
-          "name": "trend",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "borderR": true,
-          "childrenColumns": []
-        }]
-      }]
-    }, {
-      "name": "Refinement",
-      "description": "changes causing <br> small churn",
-      "descriptionStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-      "childrenColumns": [{
-        "id": "allchangesrefwrapper",
-        "name": "all <br> changes",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "allchangesref",
-          "name": "%",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }]
-      }, {
-        "id": "recentchangesrefwrapper",
-        "name": "recent <br> changes",
-        "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-        "childrenColumns": [{
-          "id": "recentchangesref%",
-          "name": "%",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }, {
-          "id": "recentchangesreftrend",
-          "name": "trend",
-          "nameStyle": "font-weight: 400;font-size: 13px;color: #6c757d;",
-          "childrenColumns": []
-        }]
-      }]
-    }]
-  }], "name": "Pace and Nature of Changes", 'data': {
-    "scriptbee": {
-      "component": {"value": "scriptbee", "style": ""},
-      "#files": {"value": "695", "style": "font-weight:bold;"},
-      "#lines": {"value": "67.0", "style": ""},
-      "#commits": {"value": "209", "style": ""},
-      "yyyy-mmstart": {"value": "2021-Jul-22 22:38:19 [93]", "style": ""},
-      "yyyy-mmend": {"value": "2023-Mar-12 08:47:09 [136]", "style": ""},
-      "mediancommits": {"value": "13", "style": ""},
-      "medianrecentcommits": {"value": "11", "style": ""},
-      "trendrecentcommits": {"value": "-0.15", "style": "border-right:1px solid;"},
-      "medianchurn": {"value": "2.829", "style": ""},
-      "recentmedianchurn": {"value": "4.282", "style": ""},
-      "recentmedianchurntrend": {"value": "0.51", "style": "border-right:1px solid;"},
-      "mediangrowth": {"value": "1.23", "style": ""},
-      "recentmediangrowth": {"value": "2.715", "style": ""},
-      "recentmediangrowthtrend": {"value": "1", "style": "border-right:1px solid;"},
-      "medianfiles": {"value": "119", "style": ""},
-      "recentmedianfiles": {"value": "177", "style": ""},
-      "recentmedianfilestrend": {"value": "0.49", "style": "border-right:1px solid;"},
-      "mediandevs": {"value": "1", "style": ""},
-      "recentmediandevs": {"value": "1", "style": ""},
-      "mediantasks": {"value": "0", "style": ""},
-      "recentmediantasks": {"value": "0", "style": ""},
-      "mediandays": {"value": "4", "style": ""},
-      "recentmediandays": {"value": "4", "style": ""},
-      "allchangescreational": {"value": "30.017226528854437", "style": ""},
-      "recentchangescreational%": {"value": "26.549413735343382", "style": ""},
-      "allchangesdev": {"value": "13.652024117140396", "style": ""},
-      "recentchangesdev%": {"value": "15.996649916247906", "style": ""},
-      "allchangesref": {"value": "54.39276485788114", "style": ""},
-      "recentchangesref%": {"value": "55.108877721943045", "style": ""}
-    }, "dx": {
-      "component": {"value": "dx", "style": ""},
-      "#files": {"value": "577", "style": "font-weight:bold;"},
-      "#lines": {"value": "55.0", "style": ""},
-      "#commits": {"value": "368", "style": ""},
-      "yyyy-mmstart": {"value": "2017-Dec-18 07:02:09 [0]", "style": ""},
-      "yyyy-mmend": {"value": "2023-Mar-1 00:46:18 [135]", "style": ""},
-      "mediancommits": {"value": "5", "style": ""},
-      "medianrecentcommits": {"value": "4", "style": ""},
-      "trendrecentcommits": {"value": "-0.20", "style": "border-right:1px solid;"},
-      "medianchurn": {"value": "0.707", "style": ""},
-      "recentmedianchurn": {"value": "0.039", "style": ""},
-      "recentmedianchurntrend": {"value": "-0.94", "style": "border-right:1px solid;"},
-      "mediangrowth": {"value": "0.228", "style": ""},
-      "recentmediangrowth": {"value": "0.01", "style": ""},
-      "recentmediangrowthtrend": {"value": "-0.96", "style": "border-right:1px solid;"},
-      "medianfiles": {"value": "36", "style": ""},
-      "recentmedianfiles": {"value": "5", "style": ""},
-      "recentmedianfilestrend": {"value": "-0.86", "style": "border-right:1px solid;"},
-      "mediandevs": {"value": "2", "style": ""},
-      "recentmediandevs": {"value": "2", "style": ""},
-      "mediantasks": {"value": "1", "style": ""},
-      "recentmediantasks": {"value": "0", "style": ""},
-      "mediandays": {"value": "3", "style": ""},
-      "recentmediandays": {"value": "2", "style": ""},
-      "allchangescreational": {"value": "17.213603818615752", "style": ""},
-      "recentchangescreational%": {"value": "20.0", "style": ""},
-      "allchangesdev": {"value": "20.375894988066825", "style": ""},
-      "recentchangesdev%": {"value": "11.11111111111111", "style": ""},
-      "allchangesref": {"value": "59.785202863961814", "style": ""},
-      "recentchangesref%": {"value": "68.88888888888889", "style": ""}
-    }, "depinder": {
-      "component": {"value": "depinder", "style": ""},
-      "#files": {"value": "55", "style": ""},
-      "#lines": {"value": "24.0", "style": ""},
-      "#commits": {"value": "40", "style": ""},
-      "yyyy-mmstart": {"value": "2021-Nov-27 11:53:30 [102]", "style": ""},
-      "yyyy-mmend": {"value": "2023-Mar-9 14:00:47 [136]", "style": ""},
-      "mediancommits": {"value": "2", "style": ""},
-      "medianrecentcommits": {"value": "2", "style": ""},
-      "trendrecentcommits": {"value": "", "style": "border-right:1px solid;"},
-      "medianchurn": {"value": "0.546", "style": ""},
-      "recentmedianchurn": {"value": "0.546", "style": ""},
-      "recentmedianchurntrend": {"value": "", "style": "border-right:1px solid;"},
-      "mediangrowth": {"value": "0.163", "style": ""},
-      "recentmediangrowth": {"value": "0.222", "style": ""},
-      "recentmediangrowthtrend": {"value": "0.36", "style": "border-right:1px solid;"},
-      "medianfiles": {"value": "13", "style": ""},
-      "recentmedianfiles": {"value": "13", "style": ""},
-      "recentmedianfilestrend": {"value": "", "style": "border-right:1px solid;"},
-      "mediandevs": {"value": "1", "style": ""},
-      "recentmediandevs": {"value": "1", "style": ""},
-      "mediantasks": {"value": "0", "style": ""},
-      "recentmediantasks": {"value": "0", "style": ""},
-      "mediandays": {"value": "1", "style": ""},
-      "recentmediandays": {"value": "2", "style": ""},
-      "allchangescreational": {"value": "28.06122448979592", "style": ""},
-      "recentchangescreational%": {"value": "12.76595744680851", "style": ""},
-      "allchangesdev": {"value": "21.428571428571427", "style": ""},
-      "recentchangesdev%": {"value": "26.595744680851062", "style": ""},
-      "allchangesref": {"value": "47.44897959183673", "style": ""},
-      "recentchangesref%": {"value": "57.4468085106383", "style": ""}
-    }, "depminer": {
-      "component": {"value": "depminer", "style": ""},
-      "#files": {"value": "19", "style": "color:#6c757d;"},
-      "#lines": {"value": "2.0", "style": ""},
-      "#commits": {"value": "16", "style": ""},
-      "yyyy-mmstart": {"value": "2022-Feb-10 18:38:39 [108]", "style": ""},
-      "yyyy-mmend": {"value": "2023-Feb-15 15:14:16 [134]", "style": ""},
-      "mediancommits": {"value": "2", "style": ""},
-      "medianrecentcommits": {"value": "2", "style": ""},
-      "trendrecentcommits": {"value": "", "style": "border-right:1px solid;"},
-      "medianchurn": {"value": "0.028", "style": ""},
-      "recentmedianchurn": {"value": "0.003", "style": ""},
-      "recentmedianchurntrend": {"value": "-0.89", "style": "border-right:1px solid;"},
-      "mediangrowth": {"value": "0.004", "style": ""},
-      "recentmediangrowth": {"value": "0.003", "style": ""},
-      "recentmediangrowthtrend": {"value": "-0.25", "style": "border-right:1px solid;"},
-      "medianfiles": {"value": "4", "style": ""},
-      "recentmedianfiles": {"value": "1", "style": ""},
-      "recentmedianfilestrend": {"value": "-0.75", "style": "border-right:1px solid;"},
-      "mediandevs": {"value": "1", "style": ""},
-      "recentmediandevs": {"value": "1", "style": ""},
-      "mediantasks": {"value": "0", "style": ""},
-      "recentmediantasks": {"value": "0", "style": ""},
-      "mediandays": {"value": "1", "style": ""},
-      "recentmediandays": {"value": "1", "style": ""},
-      "allchangescreational": {"value": "35.18518518518518", "style": ""},
-      "recentchangescreational%": {"value": "0.0", "style": ""},
-      "allchangesdev": {"value": "11.11111111111111", "style": ""},
-      "recentchangesdev%": {"value": "0.0", "style": ""},
-      "allchangesref": {"value": "53.7037037037037", "style": ""},
-      "recentchangesref%": {"value": "100.0", "style": ""}
-    }, "insider": {
-      "component": {"value": "insider", "style": ""},
-      "#files": {"value": "201", "style": "font-weight:bold;"},
-      "#lines": {"value": "32.0", "style": ""},
-      "#commits": {"value": "83", "style": ""},
-      "yyyy-mmstart": {"value": "2019-Feb-24 19:47:49 [30]", "style": ""},
-      "yyyy-mmend": {"value": "2023-Mar-14 14:50:04 [136]", "style": ""},
-      "mediancommits": {"value": "1", "style": ""},
-      "medianrecentcommits": {"value": "1", "style": ""},
-      "trendrecentcommits": {"value": "", "style": "border-right:1px solid;"},
-      "medianchurn": {"value": "0.361", "style": ""},
-      "recentmedianchurn": {"value": "0.273", "style": ""},
-      "recentmedianchurntrend": {"value": "-0.24", "style": "border-right:1px solid;"},
-      "mediangrowth": {"value": "0.156", "style": ""},
-      "recentmediangrowth": {"value": "0.138", "style": ""},
-      "recentmediangrowthtrend": {"value": "-0.12", "style": "border-right:1px solid;"},
-      "medianfiles": {"value": "12", "style": ""},
-      "recentmedianfiles": {"value": "5", "style": ""},
-      "recentmedianfilestrend": {"value": "-0.58", "style": "border-right:1px solid;"},
-      "mediandevs": {"value": "1", "style": ""},
-      "recentmediandevs": {"value": "1", "style": ""},
-      "mediantasks": {"value": "0", "style": ""},
-      "recentmediantasks": {"value": "0", "style": ""},
-      "mediandays": {"value": "1", "style": ""},
-      "recentmediandays": {"value": "1", "style": ""},
-      "allchangescreational": {"value": "26.72872340425532", "style": ""},
-      "recentchangescreational%": {"value": "27.272727272727273", "style": ""},
-      "allchangesdev": {"value": "15.02659574468085", "style": ""},
-      "recentchangesdev%": {"value": "18.181818181818183", "style": ""},
-      "allchangesref": {"value": "51.72872340425532", "style": ""},
-      "recentchangesref%": {"value": "54.54545454545455", "style": ""}
+    }], "name": "Components_Overview", 'data': {
+      "scriptbee": {
+        "component": {"value": "scriptbee", "style": ""},
+        "yyyymmstartedin": {"value": "2021-07", "style": "color:green;"},
+        "yyyymmlatestchange": {"value": "2023-03", "style": ""},
+        "#files": {"value": "695", "style": "font-weight:bold;"},
+        "#importedfiles": {"value": "0", "style": ""},
+        "%allimportedfiles": {"value": "", "style": ""},
+        "#sourcefiles": {"value": "462", "style": "font-weight:bold;"},
+        "%allsourcefiles": {"value": "0.66", "style": ""},
+        "#activerecentlyfiles": {"value": "612", "style": "font-weight:bold;"},
+        "%allactiverecentlyfiles": {"value": "0.88", "style": ""},
+        "#createdrecentlyfiles": {"value": "317", "style": "font-weight:bold;"},
+        "%allcreatedrecentlyfiles": {"value": "0.52", "style": "background-color:green; border-right:1px solid;"},
+        "x1000alllinescodesize": {"value": "67.0", "style": "font-weight:bold;"},
+        "x1000sourcecodelines": {"value": "22", "style": ""},
+        "%allsourcecodelines": {"value": "0.33", "style": ""},
+        "x1000growthrecentcodesize": {"value": "26", "style": ""},
+        "%allgrowthrecentcodesize": {"value": "0.38", "style": "border-right:1px solid;"},
+        "#alldevs": {"value": "3", "style": "color:#6c757d;"},
+        "#activerecentlydevs": {"value": "1", "style": "color:#6c757d;"},
+        "%allactiverecentlydevs": {"value": "0.33", "style": ""},
+        "#joinedrecentlydevs": {"value": "0", "style": ""},
+        "%alljoinederecentlydevs": {"value": "", "style": "border-right:1px solid;"},
+        "#allcommits": {"value": "209", "style": "font-weight:bold;"},
+        "#recentcommits": {"value": "69", "style": ""},
+        "%allrecentcommits": {"value": "0.33", "style": "border-right:1px solid;"},
+        "x1000allchurn": {"value": "202", "style": ""},
+        "x1000recentchurn": {"value": "99.0", "style": ""},
+        "%allrecentchurn": {"value": "0.49", "style": "border-right:1px solid;"},
+        "#alltasks": {"value": "1", "style": "color:#6c757d;"},
+        "#recenttasks": {"value": "1", "style": "color:#6c757d;"},
+        "%allrecenttasks": {"value": "1", "style": ""}
+      }, "dx": {
+        "component": {"value": "dx", "style": ""},
+        "yyyymmstartedin": {"value": "2017-12", "style": "color:gray;"},
+        "yyyymmlatestchange": {"value": "2023-03", "style": ""},
+        "#files": {"value": "577", "style": "font-weight:bold;"},
+        "#importedfiles": {"value": "188", "style": ""},
+        "%allimportedfiles": {"value": "0.33", "style": ""},
+        "#sourcefiles": {"value": "507", "style": "font-weight:bold;"},
+        "%allsourcefiles": {"value": "0.88", "style": ""},
+        "#activerecentlyfiles": {"value": "30", "style": ""},
+        "%allactiverecentlyfiles": {"value": "0.05", "style": ""},
+        "#createdrecentlyfiles": {"value": "9", "style": "color:#6c757d;"},
+        "%allcreatedrecentlyfiles": {"value": "0.30", "style": "background-color:red; border-right:1px solid;"},
+        "x1000alllinescodesize": {"value": "55.0", "style": "font-weight:bold;"},
+        "x1000sourcecodelines": {"value": "50", "style": "font-weight:bold;"},
+        "%allsourcecodelines": {"value": "0.91", "style": ""},
+        "x1000growthrecentcodesize": {"value": "0.10", "style": "color:#6c757d;"},
+        "%allgrowthrecentcodesize": {"value": "0.00", "style": "border-right:1px solid;"},
+        "#alldevs": {"value": "15", "style": ""},
+        "#activerecentlydevs": {"value": "4", "style": ""},
+        "%allactiverecentlydevs": {"value": "0.27", "style": ""},
+        "#joinedrecentlydevs": {"value": "0", "style": ""},
+        "%alljoinederecentlydevs": {"value": "", "style": "border-right:1px solid;"},
+        "#allcommits": {"value": "368", "style": "font-weight:bold;"},
+        "#recentcommits": {"value": "25", "style": ""},
+        "%allrecentcommits": {"value": "0.07", "style": "border-right:1px solid;"},
+        "x1000allchurn": {"value": "117", "style": ""},
+        "x1000recentchurn": {"value": "0.37", "style": "color:#6c757d;"},
+        "%allrecentchurn": {"value": "0.00", "style": "border-right:1px solid;"},
+        "#alltasks": {"value": "30", "style": ""},
+        "#recenttasks": {"value": "0", "style": "color:#6c757d;"},
+        "%allrecenttasks": {"value": "", "style": ""}
+      }, "depinder": {
+        "component": {"value": "depinder", "style": ""},
+        "yyyymmstartedin": {"value": "2021-11", "style": "color:green;"},
+        "yyyymmlatestchange": {"value": "2023-03", "style": ""},
+        "#files": {"value": "55", "style": ""},
+        "#importedfiles": {"value": "0", "style": ""},
+        "%allimportedfiles": {"value": "", "style": ""},
+        "#sourcefiles": {"value": "37", "style": ""},
+        "%allsourcefiles": {"value": "0.67", "style": ""},
+        "#activerecentlyfiles": {"value": "37", "style": ""},
+        "%allactiverecentlyfiles": {"value": "0.67", "style": ""},
+        "#createdrecentlyfiles": {"value": "12", "style": "color:#6c757d;"},
+        "%allcreatedrecentlyfiles": {"value": "0.32", "style": "background-color:yellow; border-right:1px solid;"},
+        "x1000alllinescodesize": {"value": "24.0", "style": ""},
+        "x1000sourcecodelines": {"value": "2", "style": ""},
+        "%allsourcecodelines": {"value": "0.10", "style": ""},
+        "x1000growthrecentcodesize": {"value": "2", "style": ""},
+        "%allgrowthrecentcodesize": {"value": "0.10", "style": "border-right:1px solid;"},
+        "#alldevs": {"value": "4", "style": ""},
+        "#activerecentlydevs": {"value": "3", "style": ""},
+        "%allactiverecentlydevs": {"value": "0.75", "style": ""},
+        "#joinedrecentlydevs": {"value": "0", "style": ""},
+        "%alljoinederecentlydevs": {"value": "", "style": "border-right:1px solid;"},
+        "#allcommits": {"value": "40", "style": ""},
+        "#recentcommits": {"value": "24", "style": ""},
+        "%allrecentcommits": {"value": "0.60", "style": "border-right:1px solid;"},
+        "x1000allchurn": {"value": "39", "style": ""},
+        "x1000recentchurn": {"value": "6.0", "style": ""},
+        "%allrecentchurn": {"value": "0.16", "style": "border-right:1px solid;"},
+        "#alltasks": {"value": "1", "style": "color:#6c757d;"},
+        "#recenttasks": {"value": "1", "style": "color:#6c757d;"},
+        "%allrecenttasks": {"value": "1", "style": ""}
+      }, "depminer": {
+        "component": {"value": "depminer", "style": ""},
+        "yyyymmstartedin": {"value": "2022-02", "style": "color:green;"},
+        "yyyymmlatestchange": {"value": "2023-02", "style": ""},
+        "#files": {"value": "19", "style": "color:#6c757d;"},
+        "#importedfiles": {"value": "0", "style": ""},
+        "%allimportedfiles": {"value": "", "style": ""},
+        "#sourcefiles": {"value": "5", "style": "color:#6c757d;"},
+        "%allsourcefiles": {"value": "0.26", "style": ""},
+        "#activerecentlyfiles": {"value": "1", "style": "color:#6c757d;"},
+        "%allactiverecentlyfiles": {"value": "0.05", "style": ""},
+        "#createdrecentlyfiles": {"value": "0", "style": "color:#6c757d;"},
+        "%allcreatedrecentlyfiles": {"value": "", "style": "background-color:green; border-right:1px solid;"},
+        "x1000alllinescodesize": {"value": "2.0", "style": ""},
+        "x1000sourcecodelines": {"value": "0.19", "style": "color:#6c757d;"},
+        "%allsourcecodelines": {"value": "0.09", "style": ""},
+        "x1000growthrecentcodesize": {"value": "0.00", "style": "color:#6c757d;"},
+        "%allgrowthrecentcodesize": {"value": "0.00", "style": "border-right:1px solid;"},
+        "#alldevs": {"value": "4", "style": ""},
+        "#activerecentlydevs": {"value": "1", "style": "color:#6c757d;"},
+        "%allactiverecentlydevs": {"value": "0.25", "style": ""},
+        "#joinedrecentlydevs": {"value": "0", "style": ""},
+        "%alljoinederecentlydevs": {"value": "", "style": "border-right:1px solid;"},
+        "#allcommits": {"value": "16", "style": "color:#6c757d;"},
+        "#recentcommits": {"value": "2", "style": ""},
+        "%allrecentcommits": {"value": "0.13", "style": "border-right:1px solid;"},
+        "x1000allchurn": {"value": "2", "style": ""},
+        "x1000recentchurn": {"value": "0.0", "style": "color:#6c757d;"},
+        "%allrecentchurn": {"value": "0.00", "style": "border-right:1px solid;"},
+        "#alltasks": {"value": "0", "style": "color:#6c757d;"},
+        "#recenttasks": {"value": "0", "style": "color:#6c757d;"},
+        "%allrecenttasks": {"value": "", "style": ""}
+      }, "insider": {
+        "component": {"value": "insider", "style": ""},
+        "yyyymmstartedin": {"value": "2019-02", "style": "color:green;"},
+        "yyyymmlatestchange": {"value": "2023-03", "style": ""},
+        "#files": {"value": "201", "style": "font-weight:bold;"},
+        "#importedfiles": {"value": "0", "style": ""},
+        "%allimportedfiles": {"value": "", "style": ""},
+        "#sourcefiles": {"value": "86", "style": ""},
+        "%allsourcefiles": {"value": "0.43", "style": ""},
+        "#activerecentlyfiles": {"value": "11", "style": "color:#6c757d;"},
+        "%allactiverecentlyfiles": {"value": "0.05", "style": ""},
+        "#createdrecentlyfiles": {"value": "3", "style": "color:#6c757d;"},
+        "%allcreatedrecentlyfiles": {"value": "0.27", "style": "background-color:red; border-right:1px solid;"},
+        "x1000alllinescodesize": {"value": "32.0", "style": "font-weight:bold;"},
+        "x1000sourcecodelines": {"value": "4", "style": ""},
+        "%allsourcecodelines": {"value": "0.13", "style": ""},
+        "x1000growthrecentcodesize": {"value": "0.28", "style": "color:#6c757d;"},
+        "%allgrowthrecentcodesize": {"value": "0.01", "style": "border-right:1px solid;"},
+        "#alldevs": {"value": "7", "style": ""},
+        "#activerecentlydevs": {"value": "2", "style": "color:#6c757d;"},
+        "%allactiverecentlydevs": {"value": "0.29", "style": ""},
+        "#joinedrecentlydevs": {"value": "0", "style": ""},
+        "%alljoinederecentlydevs": {"value": "", "style": "border-right:1px solid;"},
+        "#allcommits": {"value": "83", "style": ""},
+        "#recentcommits": {"value": "2", "style": ""},
+        "%allrecentcommits": {"value": "0.02", "style": "border-right:1px solid;"},
+        "x1000allchurn": {"value": "54", "style": ""},
+        "x1000recentchurn": {"value": "0.55", "style": "color:#6c757d;"},
+        "%allrecentchurn": {"value": "0.01", "style": "border-right:1px solid;"},
+        "#alltasks": {"value": "0", "style": "color:#6c757d;"},
+        "#recenttasks": {"value": "0", "style": "color:#6c757d;"},
+        "%allrecenttasks": {"value": "", "style": ""}
+      }
     }
   }
-}

@@ -3,6 +3,7 @@ import {SortHelperService} from "../services/sort-helper.service";
 import {TableDataService} from "../services/table-data.service";
 import {mockTable} from "../mockTable";
 import  jsPDF  from 'jspdf';
+
 import html2canvas from "html2canvas";
 @Component({
   selector: 'app-table-generator',
@@ -37,7 +38,7 @@ export class TableGeneratorComponent implements OnInit {
     })*/
     this.columns = mockTable.columns;
     this.tableName = mockTable.name;
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 200; i++) {
       this.data = this.data.concat(Object.values(mockTable.data))
     }
 
@@ -171,10 +172,10 @@ export class TableGeneratorComponent implements OnInit {
   }
 
   addTableColumns(): string {
-    let columns = '<tbody id="table-body">';
+    let columns = '<tbody id="table-body" cdkDropList (cdkDropListDropped)="drop($event)">';
     let singleColumn = '';
     this.data?.forEach(data => {
-      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true">`;
+      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true" cdkDrag cdkDragLockAxis="y">`;
       if (!Object.entries(data).length) {
         singleColumn += this.insertEmptyRow();
       } else {
