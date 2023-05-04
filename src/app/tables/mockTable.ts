@@ -469,6 +469,7 @@ export var mockTable =
         "#alltasks": {"value": "0", "style": "color:#6c757d;"},
         "#recenttasks": {"value": "0", "style": "color:#6c757d;"},
         "%allrecenttasks": {"value": "", "style": ""}
-      }
-    }
+      },
+"n"
+  :{}  }
   }

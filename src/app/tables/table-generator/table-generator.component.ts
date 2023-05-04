@@ -2,9 +2,7 @@ import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angu
 import {SortHelperService} from "../services/sort-helper.service";
 import {TableDataService} from "../services/table-data.service";
 import {mockTable} from "../mockTable";
-import  jsPDF  from 'jspdf';
 
-import html2canvas from "html2canvas";
 @Component({
   selector: 'app-table-generator',
   templateUrl: './table-generator.component.html',
@@ -39,7 +37,7 @@ export class TableGeneratorComponent implements OnInit {
     })*/
     this.columns = mockTable.columns;
     this.tableName = mockTable.name;
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 20; i++) {
       this.data = this.data.concat(Object.values(mockTable.data))
     }
 
@@ -294,26 +292,9 @@ export class TableGeneratorComponent implements OnInit {
     }
   }
 
-   generatePdf() {
-     const tableNativeElement = document.getElementById('table');
+  generatePdf() {
 
-     // Convert the table to an image using html2canvas
-     html2canvas(this.fullTable.nativeElement).then((canvas) => {
-       // Create a new jsPDF instance
-       const pdf = new jsPDF();
-
-       // Add the image of the table to the PDF
-       pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), 0);
-
-       // Save the PDF
-       pdf.save('table.pdf');
-     });
-    /* const doc = new jsPDF();
-     var parser = new DOMParser();
-     console.log(this.fullTable.nativeElement.textContent)
-     var data = parser.parseFromString(this.fullTable.nativeElement, 'text/html');
-     doc.fromHTML(data);*/
-     //doc.save('savePDF.pdf');
-   }
+  }
 
 }
+

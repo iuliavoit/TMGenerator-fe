@@ -44,7 +44,7 @@ export var mockMatrix =
     }],
     "entity1PaddingData":
       {
-        "scriptbee": {
+        "scriptbee": { //this should be an id set dynamically
           "entity1namecolumn": {"value": "scriptbee", "style": ""},
           "entity1sizecolumn": {"value": "695", "style": ""},
           "entity1devscolumn": {"value": "14", "style": ""},
