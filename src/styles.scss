@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mt-4 {
+  margin-top: 4rem;
+}
+.ml-4{
+  margin-left: 4rem;
+}
+.mr-4{
+  margin-right: 4rem;
+}
+.w-100 {
+  width: 100%;
+}
+.flex {
+  display: flex;
+}
+.jc-center {
+  justify-content: center;
+}
+.jc-between {
+  justify-content: space-between;
+}
+.jc-evenly {
+  justify-content: space-evenly;
+}
+.generic-btn {
+  width: 10rem;
+  height: 3rem;
+  background: #d8e2dc;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  border: unset;
+  color: #3a5a40;
+}
+.generic-btn:hover {
+  background-color: #dad7cd;
+}
+.army-green {
+  color: #3a5a40;
+}
+
+
