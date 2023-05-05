@@ -16,17 +16,19 @@ export class SortHelperService {
     return data.sort((a, b) => {
       for (let i = 0; i < sortCriteria.length; i++) {
         const {column, sortState} = sortCriteria[i];
-        let valueA = a[column.id].value;
-        let valueB = b[column.id].value;
+        let valueA = a[column.id]?.value;
+        let valueB = b[column.id]?.value;
         let comparison = 0;
+
+        if (valueA === undefined || valueB === undefined) {
+          return valueA === undefined ? 1 : -1;
+        }
+
         if (column.type === 'Date') {
           const dateA = new Date(valueA);
           const dateB = new Date(valueB);
           comparison = dateA.getTime() - dateB.getTime();
         } else if (column.type === 'String') {
-          //for the empty rows that come as {}
-          valueA = valueA != undefined ? valueA : '';
-          valueB = valueB != undefined ? valueB : '';
           comparison = valueA.localeCompare(valueB);
         } else {
           comparison = parseInt(valueA) - parseInt(valueB);
