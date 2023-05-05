@@ -23,6 +23,8 @@ export class TableGeneratorComponent implements OnInit {
 
   sortArray: any[] = [];
 
+  transposedData:any;
+
   constructor(private sortService: SortHelperService,
               private changeDetector: ChangeDetectorRef,
               private tableDataService: TableDataService) {
@@ -194,7 +196,7 @@ export class TableGeneratorComponent implements OnInit {
     Object.entries(data).forEach(([key, value]) => {
       const style = Object(value).style ? Object(value)?.style : "";
       if (Object(value).value.hasOwnProperty('url')) {
-        singleColumn += `<td  style="${style}" class="td-general-styling"><a href="${Object(value).url}" target="_blank" style="color: black">${Object(value).displayValue}</a></td>`
+        singleColumn += `<td  style="${style}" class="td-general-styling"><a href="${Object(value).url}" target="_blank" >${Object(value).displayValue}</a></td>`
       } else {
         if (Object(value).value === '0') {
           singleColumn += `<td class="td-general-styling"><span class="d-none">${Object(value).value}</span></td>`

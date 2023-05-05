@@ -1,6 +1,8 @@
 export var mockMatrix =
 
   {
+    "name": "mock matrix",
+
     "entity1PaddingColumns": [{
       "id": "entity1namecolumn",
       "name": "",
@@ -26,7 +28,7 @@ export var mockMatrix =
       "nameStyle": "font-weight: bold;text-align: center;",
       "childrenColumns": []
     }],
-    "name": "mock matrix",
+
     "entity2PaddingColumns": [{
       "id": "entity2namecolumn",
       "name": "",
@@ -44,16 +46,16 @@ export var mockMatrix =
     }],
     "entity1PaddingData":
       {
-        "scriptbee": { //this should be an id set dynamically
+        "scriptbee": {
           "entity1namecolumn": {"value": "scriptbee", "style": ""},
-          "entity1sizecolumn": {"value": "695", "style": ""},
+          "entity1sizecolumn": {"value": "695", "style": "background-color:green;"},
           "entity1devscolumn": {"value": "14", "style": ""},
           "entity1activedevscolumn": {"value": "14", "style": ""},
           "entity1apkscolumn": {"value": "14", "style": ""}
         },
         "dx": {
           "entity1namecolumn": {"value": "dx", "style": ""},
-          "entity1sizecolumn": {"value": "577", "style": ""},
+          "entity1sizecolumn": {"value": "577", "style": "background-color:green;"},
           "entity1devscolumn": {"value": "50", "style": ""},
           "entity1activedevscolumn": {"value": "50", "style": ""},
           "entity1apkscolumn": {"value": "50", "style": ""}
@@ -67,14 +69,14 @@ export var mockMatrix =
         },
         "depminer": {
           "entity1namecolumn": {"value": "depminer", "style": ""},
-          "entity1sizecolumn": {"value": "19", "style": ""},
+          "entity1sizecolumn": {"value": "19", "style": "color:red;"},
           "entity1devscolumn": {"value": "3", "style": ""},
           "entity1activedevscolumn": {"value": "3", "style": ""},
           "entity1apkscolumn": {"value": "3", "style": ""}
         },
         "insider": {
           "entity1namecolumn": {"value": "insider", "style": ""},
-          "entity1sizecolumn": {"value": "201", "style": ""},
+          "entity1sizecolumn": {"value": "201", "style": "background-color:green;"},
           "entity1devscolumn": {"value": "18", "style": ""},
           "entity1activedevscolumn": {"value": "18", "style": ""},
           "entity1apkscolumn": {"value": "18", "style": ""}

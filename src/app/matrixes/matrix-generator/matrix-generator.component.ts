@@ -53,11 +53,12 @@ export class MatrixGeneratorComponent implements OnInit {
       }
       const style = column.nameStyle ? column?.nameStyle : "";
       rightHeaders += `<th style="${style}" id="${column.id}" class="td-general-styling">${column.name}</th>`
+
       //here iterate through the generated data for this column and add it as <th>
 
       let v = this.extractValuesAtTheSamePropertyInJson(this.entity2PaddingData, column.id);
       v.forEach(data => {
-        const style = Object(data).nameStyle ? Object(data)?.nameStyle : "";
+        const style = Object(data).style ? Object(data)?.style : "";
         rightHeaders += `<th  style="${style}" class="td-general-styling"><span>${Object(data).value}</span></th>`
       })
       rightHeaders += `</tr>`;
@@ -79,7 +80,7 @@ export class MatrixGeneratorComponent implements OnInit {
     this.entity1PaddingData.forEach(data => {
       let entityData = `<tr>`;
       Object.values(data).forEach(d => {
-        const style = Object(d).nameStyle ? Object(d)?.nameStyle : "";
+        const style = Object(d).style ? Object(d)?.style : "";
         entityData += `<td  style="${style}" class="td-general-styling"><span>${Object(d).value}</span></td>`
       });
       entityData += `</tr>`
