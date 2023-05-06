@@ -18,12 +18,13 @@ export class TableGeneratorComponent implements OnInit {
   data: any = [];
   dataCopy: any = [];
   tableName: string = '';
+  lowLevelColumnHeaders: any = [];
 
   flattenedColumns: any;
 
   sortArray: any[] = [];
 
-  transposedData:any;
+  transposedData: any;
 
   constructor(private sortService: SortHelperService,
               private changeDetector: ChangeDetectorRef,
@@ -37,17 +38,28 @@ export class TableGeneratorComponent implements OnInit {
       this.flattenedColumns = this.setInitialSortStates(this.flattenJSON(this.columns, 0));
       this.createTable();
     })*/
+
     this.columns = mockTable.columns;
     this.tableName = mockTable.name;
-    for (let i = 0; i < 20; i++) {
-      this.data = this.data.concat(Object.values(mockTable.data))
-    }
+
+      this.data = Object.values(mockTable.data)
+
 
     this.dataCopy = [...this.data];
     this.flattenedColumns = this.setInitialSortStates(this.flattenJSON(this.columns, 0));
+    this.lowLevelColumnHeaders = this.getLowLevelColumns();
     this.createTable();
   }
+ createDataArray(){
+   const dataArray = Object.entries(mockTable.data).map(([key, value]) => {
+     const rowData = { key };
+     Object.entries(value).forEach(([columnKey, columnValue]) => {
+       rowData[columnKey] = columnValue.value;
+     });
+     return dataArray;
+   });
 
+ }
 
   createTable() {
     this.changeDetector.detectChanges();
@@ -66,6 +78,9 @@ export class TableGeneratorComponent implements OnInit {
     document.dispatchEvent(new Event('DOMContentLoaded'));
   }
 
+  getLowLevelColumns() {
+    return this.flattenedColumns.filter(column => column.level === this.flattenedColumns[this.flattenedColumns.length - 1].level);
+  }
 
   createTableHeaders(): string {
 
@@ -178,34 +193,44 @@ export class TableGeneratorComponent implements OnInit {
   addTableColumns(): string {
     let columns = '<tbody id="table-body">';
     let singleColumn = '';
-    this.data?.forEach(data => {
-      singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true">`;
-      if (!Object.entries(data).length) {
-        singleColumn += this.insertEmptyRow();
-      } else {
-        singleColumn += this.createTableData(data);
-      }
-      singleColumn += `</tr>`;
-      columns += singleColumn;
-    });
-    return columns + '</tbody>';
+        this.data?.forEach(data => {
+         singleColumn = `<tr style="border-bottom: 1px solid #cdcdcd" class="draggable" draggable="true">`;
+         if (!Object.entries(data).length) {
+           singleColumn += this.insertEmptyRow();
+         } else {
+           singleColumn += this.createTableData(data);
+         }
+         singleColumn += `</tr>`;
+         columns += singleColumn;
+       });
+       return columns + '</tbody>';
   }
 
   createTableData(data: any): string {
     let singleColumn = '';
-    Object.entries(data).forEach(([key, value]) => {
-      const style = Object(value).style ? Object(value)?.style : "";
-      if (Object(value).value.hasOwnProperty('url')) {
-        singleColumn += `<td  style="${style}" class="td-general-styling"><a href="${Object(value).url}" target="_blank" >${Object(value).displayValue}</a></td>`
-      } else {
-        if (Object(value).value === '0') {
-          singleColumn += `<td class="td-general-styling"><span class="d-none">${Object(value).value}</span></td>`
+    // Iterate through lowLevelColumnHeaders to keep the correct column order
+    this.lowLevelColumnHeaders.forEach(header => {
+      const key = header.column.id;
+      const value = data[key];
+
+      if (value) {
+        const style = value.style ? value.style : "";
+        if (value.value.hasOwnProperty('url')) {
+          singleColumn += `<td style="${style}" class="td-general-styling"><a href="${value.url}" target="_blank" >${value.displayValue}</a></td>`;
         } else {
-          singleColumn += `<td  style="${style}" class="td-general-styling"><span>${Object(value).value}</span></td>`
+          if (value.value === '0') {
+            singleColumn += `<td class="td-general-styling"><span class="d-none">${value.value}</span></td>`;
+          } else {
+            singleColumn += `<td style="${style}" class="td-general-styling"><span>${value.value}</span></td>`;
+          }
         }
+      } else {
+        //  empty cell if no data found
+        singleColumn += `<td class="td-general-styling"></td>`;
       }
     });
-    return singleColumn
+
+    return singleColumn;
   }
 
   insertEmptyRow(): string {
