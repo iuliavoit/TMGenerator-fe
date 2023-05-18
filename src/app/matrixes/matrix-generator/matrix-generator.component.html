@@ -1,4 +1,4 @@
-<table id="myTable" style="border-spacing: 0;width: 100%;border: 1px solid #ddd" >
+<!--<table id="myTable" style="border-spacing: 0;width: 100%;border: 1px solid #ddd" >
   <tbody>
   <tr>
     <th>
@@ -586,10 +586,18 @@
     <td class="tooltipLinks" style="background-color:blue;width:10%;text-align:center;">29</td>
   </tr>
   </tbody>
-</table>
+</table>-->
+
+
 
 <div id="fullMatrix" #fullMatrix>
-  <h3 style="padding-left:4rem">{{matrixName}}</h3>
+  <h3 class="pl-1r">{{matrixName}}</h3>
+  <div class="flex">
+    <select id="myDropdown" class="select ml-1r">
+    </select>
+    <button (click)="calculateMatrixTranspose()" class="ml-1r">{{transposeButtonText}}</button>
+  </div>
+
   <div class="matrix-container">
     <div id="showMatrix" style="margin-top: 4rem"></div>
   </div>

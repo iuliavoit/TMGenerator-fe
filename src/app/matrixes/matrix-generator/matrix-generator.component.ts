@@ -15,22 +15,73 @@ export class MatrixGeneratorComponent implements OnInit {
   entityGroup2: any[] = [];
   entity1PaddingData: any;
   entity2PaddingData: any;
+  entity2Targets: any;
+  valueComputersKeys: string[];
+  valueComputersFullData: any;
+  matrixSourceTargetData: any;
+  transposeButtonText: string = 'Transpose Matrix';
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.initializeData()
+    this.initializeData();
+    this.setDropdownValues();
     this.createMatrix();
   }
 
   initializeData() {
+    this.transposeButtonText = 'Transpose Matrix';
+    this.valueComputersKeys = [];
+    this.valueComputersKeys = [...Object.keys(mockMatrix.data)];
+    this.matrixSourceTargetData = mockMatrix.data[this.valueComputersKeys[0]];
+    this.valueComputersFullData = mockMatrix.data;
     this.matrixName = mockMatrix.name;
     this.entityGroup1 = mockMatrix.entity1PaddingColumns;
     this.entityGroup2 = mockMatrix.entity2PaddingColumns;
-    this.entity1PaddingData = Object.values(mockMatrix.entity1PaddingData);
+    this.entity1PaddingData = mockMatrix.entity1PaddingData;
     this.entity2PaddingData = Object.values(mockMatrix.entity2PaddingData);
+    this.entity2Targets = Object.keys(mockMatrix.entity2PaddingData);
   }
+
+  initializeTransposeData() {
+    this.transposeButtonText = 'Original Matrix';
+    this.valueComputersKeys = [];
+    this.valueComputersKeys = [...Object.keys(mockMatrix.data)];
+    this.matrixSourceTargetData = mockMatrix.data[this.valueComputersKeys[0]];
+    this.valueComputersFullData = mockMatrix.data;
+    this.matrixName = mockMatrix.name;
+    this.entityGroup1 = mockMatrix.entity2PaddingColumns;
+    this.entityGroup2 = mockMatrix.entity1PaddingColumns;
+    this.entity1PaddingData = mockMatrix.entity2PaddingData;
+    this.entity2PaddingData = Object.values(mockMatrix.entity1PaddingData);
+    this.entity2Targets = Object.keys(mockMatrix.entity1PaddingData);
+  }
+
+  setDropdownValues() {
+    const dropdown = document.getElementById('myDropdown') as HTMLSelectElement;
+    if (dropdown) {
+      this.valueComputersKeys.forEach((key, index) => {
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = key;
+        dropdown.appendChild(option);
+        if (index === 0) {
+          dropdown.value = key;
+        }
+      });
+      dropdown.addEventListener('change', (event) => {
+        const target = event.target as HTMLSelectElement;
+        this.setMatrixSourceTargetData(target.value);
+      });
+    }
+  }
+
+  setMatrixSourceTargetData(key: string) {
+    this.matrixSourceTargetData = this.valueComputersFullData[key];
+    this.createMatrix();
+  }
+
 
   createMatrix() {
     this.matrixHtml = '';
@@ -54,8 +105,7 @@ export class MatrixGeneratorComponent implements OnInit {
       const style = column.nameStyle ? column?.nameStyle : "";
       rightHeaders += `<th style="${style}" id="${column.id}" class="td-general-styling">${column.name}</th>`
 
-      //here iterate through the generated data for this column and add it as <th>
-
+      // iterate through the generated data for this column and add it as <th>
       let v = this.extractValuesAtTheSamePropertyInJson(this.entity2PaddingData, column.id);
       v.forEach(data => {
         const style = Object(data).style ? Object(data)?.style : "";
@@ -77,24 +127,31 @@ export class MatrixGeneratorComponent implements OnInit {
 
   getEntity1PaddingData(): string {
     let paddingData = '';
-    this.entity1PaddingData.forEach(data => {
+    Object.keys(this.entity1PaddingData).forEach(key => {
       let entityData = `<tr>`;
-      Object.values(data).forEach(d => {
+      let keyData = this.entity1PaddingData[key];
+      Object.values(keyData).forEach(d => {
         const style = Object(d).style ? Object(d)?.style : "";
         entityData += `<td  style="${style}" class="td-general-styling"><span>${Object(d).value}</span></td>`
       });
-      entityData += `</tr>`
-      // paddingData += this.getMatrixData(data); -> data for each si avem prima val
-      paddingData += entityData
-    });
+      entityData += this.getLinkedData(key);
+      paddingData += entityData;
+    })
     return paddingData;
+
   }
 
-  getMatrixData(id: any): string {
-    //search in the full data array for the values where key === id
-    const matrixData = '';
-    return matrixData;
+  getLinkedData(sourceId: any): string {
+    let linkedData = ``;
+    this.entity2Targets.forEach(targetId => {
+      const data = this.matrixSourceTargetData.find(data => data.target === targetId && data.source === sourceId);
+      if (data) {
+        linkedData += `<td style="${data?.style}" class="td-general-styling">${data.value}</td>`
+      }
+    });
+    return linkedData
   }
+
 
   extractValuesAtTheSamePropertyInJson = (data: any, prefix: string) => {
     const values: any[] = [];
@@ -110,5 +167,17 @@ export class MatrixGeneratorComponent implements OnInit {
     }
     return values;
   };
+
+  calculateMatrixTranspose() {
+    const dropdown = document.getElementById('myDropdown') as HTMLSelectElement;
+    dropdown.value = this.valueComputersKeys[0];
+    if (this.transposeButtonText === 'Transpose Matrix') {
+      this.initializeTransposeData();
+      this.createMatrix();
+    } else {
+      this.initializeData();
+      this.createMatrix();
+    }
+  }
 
 }
